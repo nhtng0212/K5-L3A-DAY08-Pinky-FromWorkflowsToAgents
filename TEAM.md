@@ -30,6 +30,8 @@ Gợi ý chia vai:
 | Nguyễn Hoàng Tùng | workflow + integration | | |
 | Phạm Nguyên Vũ | single | | |
 | Phạm Việt Hưng | orchestrator + handoff | dfcf899, 4ce6c4c, d678215 | src/tests/test_orchestrator_handoff.py (21 tests; 62 student orchestrator tests) |
+| Phạm Nguyên Vũ | single | `22387b7` | `test_single_keeps_untrusted_ticket_out_of_trace` |
+| Phạm Việt Hưng | orchestrator + handoff | | |
 | Chu Mai Hồng | ledger + evaluation | | |
 
 ## Cá nhân
