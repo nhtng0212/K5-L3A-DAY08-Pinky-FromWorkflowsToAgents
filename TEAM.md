@@ -5,7 +5,7 @@
 - Tên nhóm: Pinky
 - Lớp: L3A
 - Repo nhóm: `K5-L3A-DAY08-Pinky-FromWorkflowsToAgents` (xem [SUBMISSION.md](SUBMISSION.md))
-- URL repo, nhánh nộp, commit chốt: https://github.com/nhtng0212/K5-L3A-DAY08-Pinky-FromWorkflowsToAgents, main, db1b020
+- URL repo, nhánh nộp, commit chốt: https://github.com/nhtng0212/K5-L3A-DAY08-Pinky-FromWorkflowsToAgents, main, e3a22b6
 
 ## Thành viên
 

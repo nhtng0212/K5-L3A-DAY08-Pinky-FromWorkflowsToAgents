@@ -6,7 +6,7 @@ Tối đa 5 trang ngoài phụ lục. Số liệu lấy từ file trong `src/rep
 
 - Tên nhóm: Pinky
 - Thành viên: xem `TEAM.md`
-- Commit chốt (trùng `report/team/decision_adr.md`): db1b020
+- Commit chốt (trùng `report/team/decision_adr.md`): e3a22b6
 
 ## 2. Mục tiêu và cách tiếp cận
 
