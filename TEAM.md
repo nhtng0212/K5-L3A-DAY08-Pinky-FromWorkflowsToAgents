@@ -14,7 +14,7 @@
 |   1 | Nguyễn Hoàng Tùng | 2A202603481 | nguyentungpcbv@gmail.com | nhtng0212 | workflow + integration (Trưởng nhóm) |
 |   2 | Phạm Nguyên Vũ | 2A202603436 | phamvu65cs@gmail.com | phamvu65 | single |
 |   3 | Phạm Việt Hưng | 2A202603370 | hungphamm1507@gmail.com | rachel157 | orchestrator + handoff |
-|   4 | Chu Mai Hồng | 2A202603377 | chumaihongabc@gamil.com | maihong1208 | ledger + evaluation |
+|   4 | Chu Mai Hồng | 2A202603377 | chumaihongabc@gmail.com | maihong1208 | ledger + evaluation |
 
 Gợi ý chia vai:
 
@@ -30,7 +30,7 @@ Gợi ý chia vai:
 | Nguyễn Hoàng Tùng | workflow + integration | | |
 | Phạm Việt Hưng | orchestrator + handoff | dfcf899, 4ce6c4c, d678215 | src/tests/test_orchestrator_handoff.py (21 tests; 62 student orchestrator tests) |
 | Phạm Nguyên Vũ | single | `22387b7` | `test_single_keeps_untrusted_ticket_out_of_trace` |
-| Chu Mai Hồng | ledger + evaluation | | |
+| Chu Mai Hồng | ledger + evaluation | pending local commit | `src/tests/test_metrics.py::test_p95_steps_uses_nearest_rank_for_twenty_trials`; student T11–T14 pass |
 
 ## Cá nhân
 

@@ -27,3 +27,23 @@ def test_pass5_and_population_variance_and_cost():
     assert stats["cost_per_success_vnd"] == 40 / 3
     assert stats["latency"] == "unavailable"
     assert stats["cost_note"] == "simulated_not_real_api_price"
+
+
+def test_p95_steps_uses_nearest_rank_for_twenty_trials():
+    trials = [
+        {
+            "shape": "workflow",
+            "claim_id": f"C-{index:03d}",
+            "seed": 11,
+            "passed": True,
+            "cost_estimate": 1.0,
+            "steps": index,
+            "model_calls": 0,
+            "tool_calls": 0,
+        }
+        for index in range(1, 21)
+    ]
+
+    stats = summarize(trials)["workflow"]
+
+    assert stats["p95_steps"] == 19
