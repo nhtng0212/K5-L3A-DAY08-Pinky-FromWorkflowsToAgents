@@ -28,6 +28,8 @@ Gợi ý chia vai:
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
 | Nguyễn Hoàng Tùng | workflow + integration | | |
+| Phạm Nguyên Vũ | single | | |
+| Phạm Việt Hưng | orchestrator + handoff | dfcf899, 4ce6c4c, d678215 | src/tests/test_orchestrator_handoff.py (21 tests; 62 student orchestrator tests) |
 | Phạm Nguyên Vũ | single | `22387b7` | `test_single_keeps_untrusted_ticket_out_of_trace` |
 | Phạm Việt Hưng | orchestrator + handoff | | |
 | Chu Mai Hồng | ledger + evaluation | | |
@@ -57,3 +59,21 @@ Sao chép mục dưới đây cho từng thành viên.
 ### Bằng chứng
 
 -
+
+## 2A202603370_PhamVietHung
+
+### Phần việc phụ trách
+
+- Người 3 — Shape C (`orchestrator` + Handoff): `src/lab8/shapes/orchestrator.py` và `src/tests/test_orchestrator_handoff.py`.
+
+### Đóng góp cụ thể
+
+- `dfcf899`: xây dựng `DEFAULT_INVESTIGATOR_TOOLS` và `build_handoff` dùng `lab8.handoff.make_handoff` lọc theo allowlist, chặn write tool và secret.
+- `4ce6c4c`: triển khai `run_claim` / `_run` tách vai Orchestrator & read-only Investigator (`run_readonly_investigators`), tính quote bằng `lab8.compensation.quote`, truyền quote đầy đủ và `crash_at` vào `lab8.durability.issue_refund`, không nuốt `InjectedCrash`, ghi Trace Contract v1 sạch secret/PII trên mọi nhánh.
+- `d678215`: bổ sung test T11 idempotency và T12 crash/resume cho cả 3 điểm crash.
+
+### Bằng chứng
+
+- Các commit trên nhánh `feat/shape-c-orchestrator`: `dfcf899`, `4ce6c4c`, `d678215`.
+- Báo cáo cá nhân: `report/team/2A202603370_PhamVietHung.md`.
+- `python -m lab8.smoke` → `lab8.smoke pass`; `python -m pytest -q` → `75 passed, 248 deselected`; `python -m pytest -q -m student -o addopts= -k orchestrator` → `62 passed, 261 deselected`.
