@@ -18,8 +18,34 @@ ones. `lab8.trace.Trace` does this; your own tracer is fine if it matches.
 
 from __future__ import annotations
 
+from typing import Any
+
+from lab8.handoff import make_handoff
 from lab8.schemas import RunResult
 from lab8.shapes.common import not_implemented
+
+DEFAULT_INVESTIGATOR_TOOLS: tuple[str, ...] = (
+    "lookup_order",
+    "lookup_policy",
+    "lookup_refund_history",
+    "compute_compensation",
+)
+
+
+def build_handoff(
+    claim_id: str,
+    *,
+    seed: int,
+    facts: dict[str, Any] | None = None,
+    allowed_tools: list[str] | None = None,
+) -> dict[str, Any]:
+    return make_handoff(
+        request_id=f"REQ-{claim_id}-s{seed}",
+        claim_id=claim_id,
+        task="investigate_order_and_policy",
+        facts=dict(facts or {}),
+        allowed_tools=list(allowed_tools) if allowed_tools is not None else list(DEFAULT_INVESTIGATOR_TOOLS),
+    )
 
 
 def run_claim(
