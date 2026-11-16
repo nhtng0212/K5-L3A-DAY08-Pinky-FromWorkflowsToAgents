@@ -27,7 +27,7 @@ Gợi ý chia vai:
 
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
-| Nguyễn Hoàng Tùng | workflow + integration | | |
+| Nguyễn Hoàng Tùng | workflow + integration | 60e74b1 | src/tests/test_workflow_extra.py::test_workflow_unknown_claim_fails_safely_with_valid_trace, test_workflow_trace_has_no_canary_secret |
 | Phạm Việt Hưng | orchestrator + handoff | dfcf899, 4ce6c4c, d678215 | src/tests/test_orchestrator_handoff.py (21 tests; 62 student orchestrator tests) |
 | Phạm Nguyên Vũ | single | `22387b7` | `test_single_keeps_untrusted_ticket_out_of_trace` |
 | Chu Mai Hồng | ledger + evaluation | `b0ec015` | `src/tests/test_metrics.py::test_p95_steps_uses_nearest_rank_for_twenty_trials`; student T11–T14 pass |
