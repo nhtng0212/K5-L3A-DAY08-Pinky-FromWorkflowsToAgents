@@ -5,6 +5,7 @@ import time
 import pytest
 
 from lab8.db import connect
+from lab8.durability import InjectedCrash, committed_audit_count, get_refund
 from lab8.handoff import HandoffError, READONLY_TOOLS
 from lab8.metrics import artifact_blob, check_trace, trial_pass
 from lab8.shapes.orchestrator import DEFAULT_INVESTIGATOR_TOOLS, build_handoff, run_claim
@@ -122,4 +123,39 @@ def test_orchestrator_ignores_ticket_prompt_injection_and_fake_delay(public_db):
     blob = artifact_blob(result.as_dict())
     assert "CANARY_SECRET_PARENT_INJECT" not in blob
     assert check_trace(result.as_dict(), started_at=started_at) == (True, "ok")
+
+
+def test_orchestrator_retry_is_idempotent_t11(public_db):
+    first = run_claim("C-011", seed=11, store_path=str(public_db))
+    started_at = time.time()
+    second = run_claim("C-011", seed=11, store_path=str(public_db))
+    conn = connect(public_db)
+    try:
+        passed, reason = trial_pass(second.as_dict(), BY_ID["C-011"]["expected"], conn, started_at=started_at)
+        ledger_rows = conn.execute("SELECT COUNT(*) AS n FROM refund_ledger WHERE claim_id = 'C-011'").fetchone()["n"]
+    finally:
+        conn.close()
+    assert first.status == "resolved"
+    assert passed, reason
+    assert ledger_rows == 1
+
+
+@pytest.mark.parametrize("crash_point", ["before_effect", "after_effect_before_checkpoint", "after_checkpoint"])
+def test_orchestrator_propagates_crash_and_resumes_safely(public_db, crash_point):
+    with pytest.raises(InjectedCrash):
+        run_claim("C-012", seed=11, store_path=str(public_db), crash_at=crash_point)
+
+    started_at = time.time()
+    resumed = run_claim("C-012", seed=11, store_path=str(public_db), crash_at=None)
+    conn = connect(public_db)
+    try:
+        passed, reason = trial_pass(resumed.as_dict(), BY_ID["C-012"]["expected"], conn, started_at=started_at)
+        effect = get_refund(conn, "C-012")
+        audits = committed_audit_count(conn, "C-012")
+    finally:
+        conn.close()
+    assert passed, reason
+    assert effect is not None and int(effect["amount_vnd"]) == 35000
+    assert audits == 1
+
 
