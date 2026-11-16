@@ -15,7 +15,7 @@ Phụ trách ledger/durability và evaluation: kiểm tra idempotency, crash-res
 
 - Bổ sung `test_p95_steps_uses_nearest_rank_for_twenty_trials` trong `src/tests/test_metrics.py` để xác nhận p95 95th-percentile theo nearest-rank trên 20 trial.
 - Chạy benchmark public 4 shape × 14 claim × 5 seed và crash suite 20 điểm; JSON trong `src/reports/` được công cụ lab sinh ra, không chỉnh tay.
-- Commit chính: sẽ điền hash commit cục bộ trước khi push.
+- Commit chính: `b0ec015` (`test: add evaluation p95 coverage`).
 
 ## 4. Bằng chứng
 
@@ -25,7 +25,7 @@ Phụ trách ledger/durability và evaluation: kiểm tra idempotency, crash-res
 - `python -m lab8.crash_test --count 20 --out reports/crash.json`: crash safety 20/20.
 - `python -m lab8.benchmark --shapes workflow,single,orchestrator,swarm --cases data/public_claims.jsonl --seeds 11,22,33,44,55 --out reports/benchmark.json`: 4 shape × 14 claim × 5 seed. Run ID dẫn chứng: `R-workflow-C-001-s11`.
 - Kết quả: workflow `1.000 / 1.000`, variance `0`, cost/success `28.79` VND; single `1.000 / 1.000`, `0`, `29.46` VND; orchestrator `1.000 / 1.000`, `0`, `57.10` VND; swarm `0.9857 / 0.9286`, variance `0.0008163`, `49.57` VND. Mỗi cặp số là pass rate / pass^5.
-- `python -m lab8.check_submission`: 0 FAIL, 1 WARN (chưa có commit cho các thay đổi cục bộ).
+- `python -m lab8.check_submission`: 0 FAIL sau khi cập nhật commit hash.
 
 ## 5. Công cụ AI đã dùng
 
