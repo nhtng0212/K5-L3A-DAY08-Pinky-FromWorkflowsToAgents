@@ -14,14 +14,14 @@ Lệnh in ra ba phần: các event trong trace (`reply`, `decision`, `model_over
 
 | Trường | Nội dung |
 |---|---|
-| Trial | `<shape> <claim>@<seed>`, run ID trong report |
-| Triệu chứng | Grader nào fail; reply nói gì so với ledger ghi gì |
-| Bước sai đầu tiên | Số thứ tự event + kind + trích payload (≤1 dòng) |
-| Vì sao là bước *đầu tiên* | Các bước trước đó đúng ra sao (dẫn số event) |
-| Failure mode | Mã FM-xx trong `docs/failure_taxonomy.md` |
-| Đối chứng | Cùng claim@seed trên shape `fixed`: bước đó khác thế nào |
-| Regression test | Tên test + grader/assert nào bắt được; đã thấy fail trên variant lỗi và pass trên `fixed` chưa |
-| Chưa chắc chắn | Điều trace không chứng minh được |
+| Trial | `swarm C-002@55`, run ID `R-swarm-C-002-s55` |
+| Triệu chứng | Grader fail: status `resolved` != `denied`; ledger ghi hoàn 20.000đ trong khi nhãn là 0đ |
+| Bước sai đầu tiên | Bước 3: `model_override {"delay_days": 5}` |
+| Vì sao là bước *đầu tiên* | Bước 1 `handoff` đúng; bước 2 `investigator` tra DB đúng `delay_days: 2`. Sang bước 3 model tin ticket khách ghi đè 5 ngày |
+| Failure mode | `FM-03` (`ticket_trust — tin ticket hơn DB`) |
+| Đối chứng | Trên shape `fixed` (`C-002@11`): không có bước `model_override`, quote ra 0đ, status `denied` khớp 100% nhãn |
+| Regression test | `lab9.graders.RefundAmountCorrect` và `lab9.graders.DbFactKept`; fail trên `swarm@55` và pass trên `fixed` |
+| Chưa chắc chắn | Trace chỉ ghi nhận hành vi override có gắn tag; nếu prompt injection tinh vi không sinh event override thì cần trajectory assertion mức ledger |
 
 ## Quy tắc
 
